@@ -82,7 +82,7 @@ export const MenuItem = (menuItem) => {
                 <div className='py-2'>
                   <h3 className='text-center text-gray-800'>Any extras?</h3>
                   {ingedients.map(ingedient => (
-                  <label className='flex items-center gap-1 p-4 border rounded-md mb-1'>
+                  <label key={ingedient._id} className='flex items-center gap-1 p-4 border rounded-md mb-1'>
                     <input 
                       type='checkbox' 
                       onClick={(e) => handleExtraThingClick(e, ingedient)}
