@@ -2,32 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+section.hero {
+  @apply block md:grid;
+  grid-template-columns: 0.4fr 0.6fr;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+select,
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="text"] {
+  @apply block w-full mb-2 rounded-xl;
+  @apply border p-2 border-gray-300 bg-gray-100;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+label {
+  @apply text-gray-500 text-sm;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="tel"]:disabled,
+input[type="text"]:disabled {
+  @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
+}
+
+button,
+.button {
+  @apply block w-full text-gray-700 font-semibold;
+  @apply border rounded-xl border-gray-500 px-6 py-2;
+}
+
+button[type="submit"],
+.submit {
+  @apply border-primary bg-primary text-white;
+}
+
+button[type="submit"]:disabled,
+.submit:disabled {
+  @apply cursor-not-allowed bg-red-400;
+}
+
+div.tabs > * {
+  @apply bg-gray-300 text-gray-700 rounded-full py-2 px-4;
+}
+
+div.tabs > *.active {
+  @apply bg-primary text-white;
 }
