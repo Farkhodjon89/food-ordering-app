@@ -1,25 +1,34 @@
 import { MenuItem } from "@/models/MenuItem"
 import mongoose from "mongoose";
+import { isAdmin } from "../auth/[...nextauth]/route";
 
 export async function POST(req) {
     mongoose.connect(process.env.MONGO_URL)
     const data = await req.json()
-    const menuItemDoc = await MenuItem.create(data)
-    return Response.json(menuItemDoc)
+    if (await isAdmin()) {
+        const menuItemDoc = await MenuItem.create(data);
+        return Response.json(menuItemDoc);
+      } else {
+        return Response.json({});
+      }
 }
 
 export async function DELETE(req) {
     mongoose.connect(process.env.MONGO_URL)
-    const { _id, name } = await req.json()
-    await MenuItem.deleteOne({_id}, {name})
+    if (await isAdmin()) {
+        const { _id, name } = await req.json()
+        await MenuItem.deleteOne({_id}, {name})
+    }
     return Response.json(true)
 }
 
 export async function PUT(req) {
     mongoose.connect(process.env.MONGO_URL)
-    const { _id, ...data } = await req.json()
-    await MenuItem.findByIdAndUpdate(_id, data)
-    return Response.json(true)
+    if (await isAdmin()) {
+        const {_id, ...data} = await req.json();
+        await MenuItem.findByIdAndUpdate(_id, data);
+      }
+      return Response.json(true);
 }
 
 export async function GET() {
